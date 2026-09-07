@@ -13,367 +13,6 @@ part of 'ledger_response.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$LedgerResponse {
-  LedgerData get data;
-  String get message;
-  dynamic get errors;
-
-  /// Create a copy of LedgerResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $LedgerResponseCopyWith<LedgerResponse> get copyWith =>
-      _$LedgerResponseCopyWithImpl<LedgerResponse>(
-          this as LedgerResponse, _$identity);
-
-  /// Serializes this LedgerResponse to a JSON map.
-  Map<String, dynamic> toJson();
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is LedgerResponse &&
-            (identical(other.data, data) || other.data == data) &&
-            (identical(other.message, message) || other.message == message) &&
-            const DeepCollectionEquality().equals(other.errors, errors));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, data, message, const DeepCollectionEquality().hash(errors));
-
-  @override
-  String toString() {
-    return 'LedgerResponse(data: $data, message: $message, errors: $errors)';
-  }
-}
-
-/// @nodoc
-abstract mixin class $LedgerResponseCopyWith<$Res> {
-  factory $LedgerResponseCopyWith(
-          LedgerResponse value, $Res Function(LedgerResponse) _then) =
-      _$LedgerResponseCopyWithImpl;
-  @useResult
-  $Res call({LedgerData data, String message, dynamic errors});
-
-  $LedgerDataCopyWith<$Res> get data;
-}
-
-/// @nodoc
-class _$LedgerResponseCopyWithImpl<$Res>
-    implements $LedgerResponseCopyWith<$Res> {
-  _$LedgerResponseCopyWithImpl(this._self, this._then);
-
-  final LedgerResponse _self;
-  final $Res Function(LedgerResponse) _then;
-
-  /// Create a copy of LedgerResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? data = null,
-    Object? message = null,
-    Object? errors = freezed,
-  }) {
-    return _then(_self.copyWith(
-      data: null == data
-          ? _self.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as LedgerData,
-      message: null == message
-          ? _self.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-      errors: freezed == errors
-          ? _self.errors
-          : errors // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-    ));
-  }
-
-  /// Create a copy of LedgerResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $LedgerDataCopyWith<$Res> get data {
-    return $LedgerDataCopyWith<$Res>(_self.data, (value) {
-      return _then(_self.copyWith(data: value));
-    });
-  }
-}
-
-/// Adds pattern-matching-related methods to [LedgerResponse].
-extension LedgerResponsePatterns on LedgerResponse {
-  /// A variant of `map` that fallback to returning `orElse`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
-
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_LedgerResponse value)? $default, {
-    required TResult orElse(),
-  }) {
-    final _that = this;
-    switch (_that) {
-      case _LedgerResponse() when $default != null:
-        return $default(_that);
-      case _:
-        return orElse();
-    }
-  }
-
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// Callbacks receives the raw object, upcasted.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case final Subclass2 value:
-  ///     return ...;
-  /// }
-  /// ```
-
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_LedgerResponse value) $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _LedgerResponse():
-        return $default(_that);
-      case _:
-        throw StateError('Unexpected subclass');
-    }
-  }
-
-  /// A variant of `map` that fallback to returning `null`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
-
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_LedgerResponse value)? $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _LedgerResponse() when $default != null:
-        return $default(_that);
-      case _:
-        return null;
-    }
-  }
-
-  /// A variant of `when` that fallback to an `orElse` callback.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
-
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(LedgerData data, String message, dynamic errors)?
-        $default, {
-    required TResult orElse(),
-  }) {
-    final _that = this;
-    switch (_that) {
-      case _LedgerResponse() when $default != null:
-        return $default(_that.data, _that.message, _that.errors);
-      case _:
-        return orElse();
-    }
-  }
-
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// As opposed to `map`, this offers destructuring.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case Subclass2(:final field2):
-  ///     return ...;
-  /// }
-  /// ```
-
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(LedgerData data, String message, dynamic errors) $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _LedgerResponse():
-        return $default(_that.data, _that.message, _that.errors);
-      case _:
-        throw StateError('Unexpected subclass');
-    }
-  }
-
-  /// A variant of `when` that fallback to returning `null`
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
-
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(LedgerData data, String message, dynamic errors)?
-        $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _LedgerResponse() when $default != null:
-        return $default(_that.data, _that.message, _that.errors);
-      case _:
-        return null;
-    }
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _LedgerResponse implements LedgerResponse {
-  const _LedgerResponse(
-      {required this.data, required this.message, this.errors});
-  factory _LedgerResponse.fromJson(Map<String, dynamic> json) =>
-      _$LedgerResponseFromJson(json);
-
-  @override
-  final LedgerData data;
-  @override
-  final String message;
-  @override
-  final dynamic errors;
-
-  /// Create a copy of LedgerResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$LedgerResponseCopyWith<_LedgerResponse> get copyWith =>
-      __$LedgerResponseCopyWithImpl<_LedgerResponse>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$LedgerResponseToJson(
-      this,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _LedgerResponse &&
-            (identical(other.data, data) || other.data == data) &&
-            (identical(other.message, message) || other.message == message) &&
-            const DeepCollectionEquality().equals(other.errors, errors));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, data, message, const DeepCollectionEquality().hash(errors));
-
-  @override
-  String toString() {
-    return 'LedgerResponse(data: $data, message: $message, errors: $errors)';
-  }
-}
-
-/// @nodoc
-abstract mixin class _$LedgerResponseCopyWith<$Res>
-    implements $LedgerResponseCopyWith<$Res> {
-  factory _$LedgerResponseCopyWith(
-          _LedgerResponse value, $Res Function(_LedgerResponse) _then) =
-      __$LedgerResponseCopyWithImpl;
-  @override
-  @useResult
-  $Res call({LedgerData data, String message, dynamic errors});
-
-  @override
-  $LedgerDataCopyWith<$Res> get data;
-}
-
-/// @nodoc
-class __$LedgerResponseCopyWithImpl<$Res>
-    implements _$LedgerResponseCopyWith<$Res> {
-  __$LedgerResponseCopyWithImpl(this._self, this._then);
-
-  final _LedgerResponse _self;
-  final $Res Function(_LedgerResponse) _then;
-
-  /// Create a copy of LedgerResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? data = null,
-    Object? message = null,
-    Object? errors = freezed,
-  }) {
-    return _then(_LedgerResponse(
-      data: null == data
-          ? _self.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as LedgerData,
-      message: null == message
-          ? _self.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-      errors: freezed == errors
-          ? _self.errors
-          : errors // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-    ));
-  }
-
-  /// Create a copy of LedgerResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $LedgerDataCopyWith<$Res> get data {
-    return $LedgerDataCopyWith<$Res>(_self.data, (value) {
-      return _then(_self.copyWith(data: value));
-    });
-  }
-}
-
-/// @nodoc
 mixin _$LedgerData {
   LedgerEntries get entries;
   LedgerSummary get summary;
@@ -740,8 +379,9 @@ mixin _$LedgerEntries {
   int get currentPage;
   List<LedgerEntry> get data;
   @JsonKey(name: 'first_page_url')
-  String get firstPageUrl;
-  int get from;
+  String
+      get firstPageUrl; // Laravel returns null when the paginator has no entries.
+  int? get from;
   @JsonKey(name: 'last_page')
   int get lastPage;
   @JsonKey(name: 'last_page_url')
@@ -753,8 +393,9 @@ mixin _$LedgerEntries {
   @JsonKey(name: 'per_page')
   int get perPage;
   @JsonKey(name: 'prev_page_url')
-  String? get prevPageUrl;
-  int get to;
+  String?
+      get prevPageUrl; // Laravel returns null when the paginator has no entries.
+  int? get to;
   int get total;
 
   /// Create a copy of LedgerEntries
@@ -828,7 +469,7 @@ abstract mixin class $LedgerEntriesCopyWith<$Res> {
       {@JsonKey(name: 'current_page') int currentPage,
       List<LedgerEntry> data,
       @JsonKey(name: 'first_page_url') String firstPageUrl,
-      int from,
+      int? from,
       @JsonKey(name: 'last_page') int lastPage,
       @JsonKey(name: 'last_page_url') String lastPageUrl,
       List<PaginationLink> links,
@@ -836,7 +477,7 @@ abstract mixin class $LedgerEntriesCopyWith<$Res> {
       String path,
       @JsonKey(name: 'per_page') int perPage,
       @JsonKey(name: 'prev_page_url') String? prevPageUrl,
-      int to,
+      int? to,
       int total});
 }
 
@@ -856,7 +497,7 @@ class _$LedgerEntriesCopyWithImpl<$Res>
     Object? currentPage = null,
     Object? data = null,
     Object? firstPageUrl = null,
-    Object? from = null,
+    Object? from = freezed,
     Object? lastPage = null,
     Object? lastPageUrl = null,
     Object? links = null,
@@ -864,7 +505,7 @@ class _$LedgerEntriesCopyWithImpl<$Res>
     Object? path = null,
     Object? perPage = null,
     Object? prevPageUrl = freezed,
-    Object? to = null,
+    Object? to = freezed,
     Object? total = null,
   }) {
     return _then(_self.copyWith(
@@ -880,10 +521,10 @@ class _$LedgerEntriesCopyWithImpl<$Res>
           ? _self.firstPageUrl
           : firstPageUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      from: null == from
+      from: freezed == from
           ? _self.from
           : from // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       lastPage: null == lastPage
           ? _self.lastPage
           : lastPage // ignore: cast_nullable_to_non_nullable
@@ -912,10 +553,10 @@ class _$LedgerEntriesCopyWithImpl<$Res>
           ? _self.prevPageUrl
           : prevPageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      to: null == to
+      to: freezed == to
           ? _self.to
           : to // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       total: null == total
           ? _self.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -1021,7 +662,7 @@ extension LedgerEntriesPatterns on LedgerEntries {
             @JsonKey(name: 'current_page') int currentPage,
             List<LedgerEntry> data,
             @JsonKey(name: 'first_page_url') String firstPageUrl,
-            int from,
+            int? from,
             @JsonKey(name: 'last_page') int lastPage,
             @JsonKey(name: 'last_page_url') String lastPageUrl,
             List<PaginationLink> links,
@@ -1029,7 +670,7 @@ extension LedgerEntriesPatterns on LedgerEntries {
             String path,
             @JsonKey(name: 'per_page') int perPage,
             @JsonKey(name: 'prev_page_url') String? prevPageUrl,
-            int to,
+            int? to,
             int total)?
         $default, {
     required TResult orElse(),
@@ -1075,7 +716,7 @@ extension LedgerEntriesPatterns on LedgerEntries {
             @JsonKey(name: 'current_page') int currentPage,
             List<LedgerEntry> data,
             @JsonKey(name: 'first_page_url') String firstPageUrl,
-            int from,
+            int? from,
             @JsonKey(name: 'last_page') int lastPage,
             @JsonKey(name: 'last_page_url') String lastPageUrl,
             List<PaginationLink> links,
@@ -1083,7 +724,7 @@ extension LedgerEntriesPatterns on LedgerEntries {
             String path,
             @JsonKey(name: 'per_page') int perPage,
             @JsonKey(name: 'prev_page_url') String? prevPageUrl,
-            int to,
+            int? to,
             int total)
         $default,
   ) {
@@ -1127,7 +768,7 @@ extension LedgerEntriesPatterns on LedgerEntries {
             @JsonKey(name: 'current_page') int currentPage,
             List<LedgerEntry> data,
             @JsonKey(name: 'first_page_url') String firstPageUrl,
-            int from,
+            int? from,
             @JsonKey(name: 'last_page') int lastPage,
             @JsonKey(name: 'last_page_url') String lastPageUrl,
             List<PaginationLink> links,
@@ -1135,7 +776,7 @@ extension LedgerEntriesPatterns on LedgerEntries {
             String path,
             @JsonKey(name: 'per_page') int perPage,
             @JsonKey(name: 'prev_page_url') String? prevPageUrl,
-            int to,
+            int? to,
             int total)?
         $default,
   ) {
@@ -1169,7 +810,7 @@ class _LedgerEntries implements LedgerEntries {
       {@JsonKey(name: 'current_page') required this.currentPage,
       required final List<LedgerEntry> data,
       @JsonKey(name: 'first_page_url') required this.firstPageUrl,
-      required this.from,
+      this.from,
       @JsonKey(name: 'last_page') required this.lastPage,
       @JsonKey(name: 'last_page_url') required this.lastPageUrl,
       required final List<PaginationLink> links,
@@ -1177,7 +818,7 @@ class _LedgerEntries implements LedgerEntries {
       required this.path,
       @JsonKey(name: 'per_page') required this.perPage,
       @JsonKey(name: 'prev_page_url') this.prevPageUrl,
-      required this.to,
+      this.to,
       required this.total})
       : _data = data,
         _links = links;
@@ -1198,8 +839,9 @@ class _LedgerEntries implements LedgerEntries {
   @override
   @JsonKey(name: 'first_page_url')
   final String firstPageUrl;
+// Laravel returns null when the paginator has no entries.
   @override
-  final int from;
+  final int? from;
   @override
   @JsonKey(name: 'last_page')
   final int lastPage;
@@ -1225,8 +867,9 @@ class _LedgerEntries implements LedgerEntries {
   @override
   @JsonKey(name: 'prev_page_url')
   final String? prevPageUrl;
+// Laravel returns null when the paginator has no entries.
   @override
-  final int to;
+  final int? to;
   @override
   final int total;
 
@@ -1307,7 +950,7 @@ abstract mixin class _$LedgerEntriesCopyWith<$Res>
       {@JsonKey(name: 'current_page') int currentPage,
       List<LedgerEntry> data,
       @JsonKey(name: 'first_page_url') String firstPageUrl,
-      int from,
+      int? from,
       @JsonKey(name: 'last_page') int lastPage,
       @JsonKey(name: 'last_page_url') String lastPageUrl,
       List<PaginationLink> links,
@@ -1315,7 +958,7 @@ abstract mixin class _$LedgerEntriesCopyWith<$Res>
       String path,
       @JsonKey(name: 'per_page') int perPage,
       @JsonKey(name: 'prev_page_url') String? prevPageUrl,
-      int to,
+      int? to,
       int total});
 }
 
@@ -1335,7 +978,7 @@ class __$LedgerEntriesCopyWithImpl<$Res>
     Object? currentPage = null,
     Object? data = null,
     Object? firstPageUrl = null,
-    Object? from = null,
+    Object? from = freezed,
     Object? lastPage = null,
     Object? lastPageUrl = null,
     Object? links = null,
@@ -1343,7 +986,7 @@ class __$LedgerEntriesCopyWithImpl<$Res>
     Object? path = null,
     Object? perPage = null,
     Object? prevPageUrl = freezed,
-    Object? to = null,
+    Object? to = freezed,
     Object? total = null,
   }) {
     return _then(_LedgerEntries(
@@ -1359,10 +1002,10 @@ class __$LedgerEntriesCopyWithImpl<$Res>
           ? _self.firstPageUrl
           : firstPageUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      from: null == from
+      from: freezed == from
           ? _self.from
           : from // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       lastPage: null == lastPage
           ? _self.lastPage
           : lastPage // ignore: cast_nullable_to_non_nullable
@@ -1391,10 +1034,10 @@ class __$LedgerEntriesCopyWithImpl<$Res>
           ? _self.prevPageUrl
           : prevPageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      to: null == to
+      to: freezed == to
           ? _self.to
           : to // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       total: null == total
           ? _self.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -2004,94 +1647,100 @@ class __$LedgerEntryCopyWithImpl<$Res> implements _$LedgerEntryCopyWith<$Res> {
 }
 
 /// @nodoc
-mixin _$PaginationLink {
-  String? get url;
-  String get label;
-  int? get page;
-  bool get active;
+mixin _$LedgerResponse {
+  LedgerData get data;
+  String get message;
+  dynamic get errors;
 
-  /// Create a copy of PaginationLink
+  /// Create a copy of LedgerResponse
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $PaginationLinkCopyWith<PaginationLink> get copyWith =>
-      _$PaginationLinkCopyWithImpl<PaginationLink>(
-          this as PaginationLink, _$identity);
+  $LedgerResponseCopyWith<LedgerResponse> get copyWith =>
+      _$LedgerResponseCopyWithImpl<LedgerResponse>(
+          this as LedgerResponse, _$identity);
 
-  /// Serializes this PaginationLink to a JSON map.
+  /// Serializes this LedgerResponse to a JSON map.
   Map<String, dynamic> toJson();
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is PaginationLink &&
-            (identical(other.url, url) || other.url == url) &&
-            (identical(other.label, label) || other.label == label) &&
-            (identical(other.page, page) || other.page == page) &&
-            (identical(other.active, active) || other.active == active));
+            other is LedgerResponse &&
+            (identical(other.data, data) || other.data == data) &&
+            (identical(other.message, message) || other.message == message) &&
+            const DeepCollectionEquality().equals(other.errors, errors));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, url, label, page, active);
+  int get hashCode => Object.hash(
+      runtimeType, data, message, const DeepCollectionEquality().hash(errors));
 
   @override
   String toString() {
-    return 'PaginationLink(url: $url, label: $label, page: $page, active: $active)';
+    return 'LedgerResponse(data: $data, message: $message, errors: $errors)';
   }
 }
 
 /// @nodoc
-abstract mixin class $PaginationLinkCopyWith<$Res> {
-  factory $PaginationLinkCopyWith(
-          PaginationLink value, $Res Function(PaginationLink) _then) =
-      _$PaginationLinkCopyWithImpl;
+abstract mixin class $LedgerResponseCopyWith<$Res> {
+  factory $LedgerResponseCopyWith(
+          LedgerResponse value, $Res Function(LedgerResponse) _then) =
+      _$LedgerResponseCopyWithImpl;
   @useResult
-  $Res call({String? url, String label, int? page, bool active});
+  $Res call({LedgerData data, String message, dynamic errors});
+
+  $LedgerDataCopyWith<$Res> get data;
 }
 
 /// @nodoc
-class _$PaginationLinkCopyWithImpl<$Res>
-    implements $PaginationLinkCopyWith<$Res> {
-  _$PaginationLinkCopyWithImpl(this._self, this._then);
+class _$LedgerResponseCopyWithImpl<$Res>
+    implements $LedgerResponseCopyWith<$Res> {
+  _$LedgerResponseCopyWithImpl(this._self, this._then);
 
-  final PaginationLink _self;
-  final $Res Function(PaginationLink) _then;
+  final LedgerResponse _self;
+  final $Res Function(LedgerResponse) _then;
 
-  /// Create a copy of PaginationLink
+  /// Create a copy of LedgerResponse
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? url = freezed,
-    Object? label = null,
-    Object? page = freezed,
-    Object? active = null,
+    Object? data = null,
+    Object? message = null,
+    Object? errors = freezed,
   }) {
     return _then(_self.copyWith(
-      url: freezed == url
-          ? _self.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String?,
-      label: null == label
-          ? _self.label
-          : label // ignore: cast_nullable_to_non_nullable
+      data: null == data
+          ? _self.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as LedgerData,
+      message: null == message
+          ? _self.message
+          : message // ignore: cast_nullable_to_non_nullable
               as String,
-      page: freezed == page
-          ? _self.page
-          : page // ignore: cast_nullable_to_non_nullable
-              as int?,
-      active: null == active
-          ? _self.active
-          : active // ignore: cast_nullable_to_non_nullable
-              as bool,
+      errors: freezed == errors
+          ? _self.errors
+          : errors // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ));
+  }
+
+  /// Create a copy of LedgerResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $LedgerDataCopyWith<$Res> get data {
+    return $LedgerDataCopyWith<$Res>(_self.data, (value) {
+      return _then(_self.copyWith(data: value));
+    });
   }
 }
 
-/// Adds pattern-matching-related methods to [PaginationLink].
-extension PaginationLinkPatterns on PaginationLink {
+/// Adds pattern-matching-related methods to [LedgerResponse].
+extension LedgerResponsePatterns on LedgerResponse {
   /// A variant of `map` that fallback to returning `orElse`.
   ///
   /// It is equivalent to doing:
@@ -2106,12 +1755,12 @@ extension PaginationLinkPatterns on PaginationLink {
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(_PaginationLink value)? $default, {
+    TResult Function(_LedgerResponse value)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _PaginationLink() when $default != null:
+      case _LedgerResponse() when $default != null:
         return $default(_that);
       case _:
         return orElse();
@@ -2133,11 +1782,11 @@ extension PaginationLinkPatterns on PaginationLink {
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(_PaginationLink value) $default,
+    TResult Function(_LedgerResponse value) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _PaginationLink():
+      case _LedgerResponse():
         return $default(_that);
       case _:
         throw StateError('Unexpected subclass');
@@ -2158,11 +1807,11 @@ extension PaginationLinkPatterns on PaginationLink {
 
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_PaginationLink value)? $default,
+    TResult? Function(_LedgerResponse value)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _PaginationLink() when $default != null:
+      case _LedgerResponse() when $default != null:
         return $default(_that);
       case _:
         return null;
@@ -2183,14 +1832,14 @@ extension PaginationLinkPatterns on PaginationLink {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? url, String label, int? page, bool active)?
+    TResult Function(LedgerData data, String message, dynamic errors)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _PaginationLink() when $default != null:
-        return $default(_that.url, _that.label, _that.page, _that.active);
+      case _LedgerResponse() when $default != null:
+        return $default(_that.data, _that.message, _that.errors);
       case _:
         return orElse();
     }
@@ -2211,13 +1860,12 @@ extension PaginationLinkPatterns on PaginationLink {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String? url, String label, int? page, bool active)
-        $default,
+    TResult Function(LedgerData data, String message, dynamic errors) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _PaginationLink():
-        return $default(_that.url, _that.label, _that.page, _that.active);
+      case _LedgerResponse():
+        return $default(_that.data, _that.message, _that.errors);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -2237,13 +1885,13 @@ extension PaginationLinkPatterns on PaginationLink {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? url, String label, int? page, bool active)?
+    TResult? Function(LedgerData data, String message, dynamic errors)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _PaginationLink() when $default != null:
-        return $default(_that.url, _that.label, _that.page, _that.active);
+      case _LedgerResponse() when $default != null:
+        return $default(_that.data, _that.message, _that.errors);
       case _:
         return null;
     }
@@ -2252,32 +1900,30 @@ extension PaginationLinkPatterns on PaginationLink {
 
 /// @nodoc
 @JsonSerializable()
-class _PaginationLink implements PaginationLink {
-  const _PaginationLink(
-      {this.url, required this.label, this.page, required this.active});
-  factory _PaginationLink.fromJson(Map<String, dynamic> json) =>
-      _$PaginationLinkFromJson(json);
+class _LedgerResponse implements LedgerResponse {
+  const _LedgerResponse(
+      {required this.data, required this.message, this.errors});
+  factory _LedgerResponse.fromJson(Map<String, dynamic> json) =>
+      _$LedgerResponseFromJson(json);
 
   @override
-  final String? url;
+  final LedgerData data;
   @override
-  final String label;
+  final String message;
   @override
-  final int? page;
-  @override
-  final bool active;
+  final dynamic errors;
 
-  /// Create a copy of PaginationLink
+  /// Create a copy of LedgerResponse
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$PaginationLinkCopyWith<_PaginationLink> get copyWith =>
-      __$PaginationLinkCopyWithImpl<_PaginationLink>(this, _$identity);
+  _$LedgerResponseCopyWith<_LedgerResponse> get copyWith =>
+      __$LedgerResponseCopyWithImpl<_LedgerResponse>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$PaginationLinkToJson(
+    return _$LedgerResponseToJson(
       this,
     );
   }
@@ -2286,70 +1932,78 @@ class _PaginationLink implements PaginationLink {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _PaginationLink &&
-            (identical(other.url, url) || other.url == url) &&
-            (identical(other.label, label) || other.label == label) &&
-            (identical(other.page, page) || other.page == page) &&
-            (identical(other.active, active) || other.active == active));
+            other is _LedgerResponse &&
+            (identical(other.data, data) || other.data == data) &&
+            (identical(other.message, message) || other.message == message) &&
+            const DeepCollectionEquality().equals(other.errors, errors));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, url, label, page, active);
+  int get hashCode => Object.hash(
+      runtimeType, data, message, const DeepCollectionEquality().hash(errors));
 
   @override
   String toString() {
-    return 'PaginationLink(url: $url, label: $label, page: $page, active: $active)';
+    return 'LedgerResponse(data: $data, message: $message, errors: $errors)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$PaginationLinkCopyWith<$Res>
-    implements $PaginationLinkCopyWith<$Res> {
-  factory _$PaginationLinkCopyWith(
-          _PaginationLink value, $Res Function(_PaginationLink) _then) =
-      __$PaginationLinkCopyWithImpl;
+abstract mixin class _$LedgerResponseCopyWith<$Res>
+    implements $LedgerResponseCopyWith<$Res> {
+  factory _$LedgerResponseCopyWith(
+          _LedgerResponse value, $Res Function(_LedgerResponse) _then) =
+      __$LedgerResponseCopyWithImpl;
   @override
   @useResult
-  $Res call({String? url, String label, int? page, bool active});
+  $Res call({LedgerData data, String message, dynamic errors});
+
+  @override
+  $LedgerDataCopyWith<$Res> get data;
 }
 
 /// @nodoc
-class __$PaginationLinkCopyWithImpl<$Res>
-    implements _$PaginationLinkCopyWith<$Res> {
-  __$PaginationLinkCopyWithImpl(this._self, this._then);
+class __$LedgerResponseCopyWithImpl<$Res>
+    implements _$LedgerResponseCopyWith<$Res> {
+  __$LedgerResponseCopyWithImpl(this._self, this._then);
 
-  final _PaginationLink _self;
-  final $Res Function(_PaginationLink) _then;
+  final _LedgerResponse _self;
+  final $Res Function(_LedgerResponse) _then;
 
-  /// Create a copy of PaginationLink
+  /// Create a copy of LedgerResponse
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? url = freezed,
-    Object? label = null,
-    Object? page = freezed,
-    Object? active = null,
+    Object? data = null,
+    Object? message = null,
+    Object? errors = freezed,
   }) {
-    return _then(_PaginationLink(
-      url: freezed == url
-          ? _self.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String?,
-      label: null == label
-          ? _self.label
-          : label // ignore: cast_nullable_to_non_nullable
+    return _then(_LedgerResponse(
+      data: null == data
+          ? _self.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as LedgerData,
+      message: null == message
+          ? _self.message
+          : message // ignore: cast_nullable_to_non_nullable
               as String,
-      page: freezed == page
-          ? _self.page
-          : page // ignore: cast_nullable_to_non_nullable
-              as int?,
-      active: null == active
-          ? _self.active
-          : active // ignore: cast_nullable_to_non_nullable
-              as bool,
+      errors: freezed == errors
+          ? _self.errors
+          : errors // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ));
+  }
+
+  /// Create a copy of LedgerResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $LedgerDataCopyWith<$Res> get data {
+    return $LedgerDataCopyWith<$Res>(_self.data, (value) {
+      return _then(_self.copyWith(data: value));
+    });
   }
 }
 
@@ -2705,6 +2359,356 @@ class __$LedgerSummaryCopyWithImpl<$Res>
           ? _self.balance
           : balance // ignore: cast_nullable_to_non_nullable
               as double,
+    ));
+  }
+}
+
+/// @nodoc
+mixin _$PaginationLink {
+  String? get url;
+  String get label;
+  int? get page;
+  bool get active;
+
+  /// Create a copy of PaginationLink
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $PaginationLinkCopyWith<PaginationLink> get copyWith =>
+      _$PaginationLinkCopyWithImpl<PaginationLink>(
+          this as PaginationLink, _$identity);
+
+  /// Serializes this PaginationLink to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is PaginationLink &&
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.label, label) || other.label == label) &&
+            (identical(other.page, page) || other.page == page) &&
+            (identical(other.active, active) || other.active == active));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, url, label, page, active);
+
+  @override
+  String toString() {
+    return 'PaginationLink(url: $url, label: $label, page: $page, active: $active)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $PaginationLinkCopyWith<$Res> {
+  factory $PaginationLinkCopyWith(
+          PaginationLink value, $Res Function(PaginationLink) _then) =
+      _$PaginationLinkCopyWithImpl;
+  @useResult
+  $Res call({String? url, String label, int? page, bool active});
+}
+
+/// @nodoc
+class _$PaginationLinkCopyWithImpl<$Res>
+    implements $PaginationLinkCopyWith<$Res> {
+  _$PaginationLinkCopyWithImpl(this._self, this._then);
+
+  final PaginationLink _self;
+  final $Res Function(PaginationLink) _then;
+
+  /// Create a copy of PaginationLink
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? url = freezed,
+    Object? label = null,
+    Object? page = freezed,
+    Object? active = null,
+  }) {
+    return _then(_self.copyWith(
+      url: freezed == url
+          ? _self.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
+      label: null == label
+          ? _self.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String,
+      page: freezed == page
+          ? _self.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as int?,
+      active: null == active
+          ? _self.active
+          : active // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// Adds pattern-matching-related methods to [PaginationLink].
+extension PaginationLinkPatterns on PaginationLink {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_PaginationLink value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _PaginationLink() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_PaginationLink value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _PaginationLink():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_PaginationLink value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _PaginationLink() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String? url, String label, int? page, bool active)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _PaginationLink() when $default != null:
+        return $default(_that.url, _that.label, _that.page, _that.active);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String? url, String label, int? page, bool active)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _PaginationLink():
+        return $default(_that.url, _that.label, _that.page, _that.active);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(String? url, String label, int? page, bool active)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _PaginationLink() when $default != null:
+        return $default(_that.url, _that.label, _that.page, _that.active);
+      case _:
+        return null;
+    }
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _PaginationLink implements PaginationLink {
+  const _PaginationLink(
+      {this.url, required this.label, this.page, required this.active});
+  factory _PaginationLink.fromJson(Map<String, dynamic> json) =>
+      _$PaginationLinkFromJson(json);
+
+  @override
+  final String? url;
+  @override
+  final String label;
+  @override
+  final int? page;
+  @override
+  final bool active;
+
+  /// Create a copy of PaginationLink
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$PaginationLinkCopyWith<_PaginationLink> get copyWith =>
+      __$PaginationLinkCopyWithImpl<_PaginationLink>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$PaginationLinkToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _PaginationLink &&
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.label, label) || other.label == label) &&
+            (identical(other.page, page) || other.page == page) &&
+            (identical(other.active, active) || other.active == active));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, url, label, page, active);
+
+  @override
+  String toString() {
+    return 'PaginationLink(url: $url, label: $label, page: $page, active: $active)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$PaginationLinkCopyWith<$Res>
+    implements $PaginationLinkCopyWith<$Res> {
+  factory _$PaginationLinkCopyWith(
+          _PaginationLink value, $Res Function(_PaginationLink) _then) =
+      __$PaginationLinkCopyWithImpl;
+  @override
+  @useResult
+  $Res call({String? url, String label, int? page, bool active});
+}
+
+/// @nodoc
+class __$PaginationLinkCopyWithImpl<$Res>
+    implements _$PaginationLinkCopyWith<$Res> {
+  __$PaginationLinkCopyWithImpl(this._self, this._then);
+
+  final _PaginationLink _self;
+  final $Res Function(_PaginationLink) _then;
+
+  /// Create a copy of PaginationLink
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? url = freezed,
+    Object? label = null,
+    Object? page = freezed,
+    Object? active = null,
+  }) {
+    return _then(_PaginationLink(
+      url: freezed == url
+          ? _self.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
+      label: null == label
+          ? _self.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String,
+      page: freezed == page
+          ? _self.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as int?,
+      active: null == active
+          ? _self.active
+          : active // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }

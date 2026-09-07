@@ -6,8 +6,9 @@ class LedgerRemoteDataSource {
 
   LedgerRemoteDataSource(this._apiService);
 
-  Future<LedgerResponse> getLedger() {
-    final response = _apiService.getLedger();
-    return response;
+  Future<LedgerResponse> getLedger({
+    required int page,
+  }) {
+    return _apiService.getLedger(page);
   }
 }

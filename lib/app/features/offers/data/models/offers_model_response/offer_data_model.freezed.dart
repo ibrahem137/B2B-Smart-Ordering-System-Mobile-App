@@ -21,9 +21,9 @@ mixin _$OfferData {
   String get offerPrice;
   @JsonKey(name: 'offer_stock')
   int get offerStock;
-  String get status;
+  String get status; // expires_at can be null from backend
   @JsonKey(name: 'expires_at')
-  DateTime get expiresAt;
+  DateTime? get expiresAt;
   @JsonKey(name: 'created_at')
   DateTime get createdAt;
   @JsonKey(name: 'updated_at')
@@ -100,7 +100,7 @@ abstract mixin class $OfferDataCopyWith<$Res> {
       @JsonKey(name: 'offer_price') String offerPrice,
       @JsonKey(name: 'offer_stock') int offerStock,
       String status,
-      @JsonKey(name: 'expires_at') DateTime expiresAt,
+      @JsonKey(name: 'expires_at') DateTime? expiresAt,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'updated_at') DateTime updatedAt,
       @JsonKey(name: 'image_url') String? imageUrl,
@@ -126,7 +126,7 @@ class _$OfferDataCopyWithImpl<$Res> implements $OfferDataCopyWith<$Res> {
     Object? offerPrice = null,
     Object? offerStock = null,
     Object? status = null,
-    Object? expiresAt = null,
+    Object? expiresAt = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? imageUrl = freezed,
@@ -153,10 +153,10 @@ class _$OfferDataCopyWithImpl<$Res> implements $OfferDataCopyWith<$Res> {
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
-      expiresAt: null == expiresAt
+      expiresAt: freezed == expiresAt
           ? _self.expiresAt
           : expiresAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       createdAt: null == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -286,7 +286,7 @@ extension OfferDataPatterns on OfferData {
             @JsonKey(name: 'offer_price') String offerPrice,
             @JsonKey(name: 'offer_stock') int offerStock,
             String status,
-            @JsonKey(name: 'expires_at') DateTime expiresAt,
+            @JsonKey(name: 'expires_at') DateTime? expiresAt,
             @JsonKey(name: 'created_at') DateTime createdAt,
             @JsonKey(name: 'updated_at') DateTime updatedAt,
             @JsonKey(name: 'image_url') String? imageUrl,
@@ -334,7 +334,7 @@ extension OfferDataPatterns on OfferData {
             @JsonKey(name: 'offer_price') String offerPrice,
             @JsonKey(name: 'offer_stock') int offerStock,
             String status,
-            @JsonKey(name: 'expires_at') DateTime expiresAt,
+            @JsonKey(name: 'expires_at') DateTime? expiresAt,
             @JsonKey(name: 'created_at') DateTime createdAt,
             @JsonKey(name: 'updated_at') DateTime updatedAt,
             @JsonKey(name: 'image_url') String? imageUrl,
@@ -380,7 +380,7 @@ extension OfferDataPatterns on OfferData {
             @JsonKey(name: 'offer_price') String offerPrice,
             @JsonKey(name: 'offer_stock') int offerStock,
             String status,
-            @JsonKey(name: 'expires_at') DateTime expiresAt,
+            @JsonKey(name: 'expires_at') DateTime? expiresAt,
             @JsonKey(name: 'created_at') DateTime createdAt,
             @JsonKey(name: 'updated_at') DateTime updatedAt,
             @JsonKey(name: 'image_url') String? imageUrl,
@@ -416,7 +416,7 @@ class _OfferData implements OfferData {
       @JsonKey(name: 'offer_price') required this.offerPrice,
       @JsonKey(name: 'offer_stock') required this.offerStock,
       required this.status,
-      @JsonKey(name: 'expires_at') required this.expiresAt,
+      @JsonKey(name: 'expires_at') this.expiresAt,
       @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'updated_at') required this.updatedAt,
       @JsonKey(name: 'image_url') this.imageUrl,
@@ -437,9 +437,10 @@ class _OfferData implements OfferData {
   final int offerStock;
   @override
   final String status;
+// expires_at can be null from backend
   @override
   @JsonKey(name: 'expires_at')
-  final DateTime expiresAt;
+  final DateTime? expiresAt;
   @override
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
@@ -528,7 +529,7 @@ abstract mixin class _$OfferDataCopyWith<$Res>
       @JsonKey(name: 'offer_price') String offerPrice,
       @JsonKey(name: 'offer_stock') int offerStock,
       String status,
-      @JsonKey(name: 'expires_at') DateTime expiresAt,
+      @JsonKey(name: 'expires_at') DateTime? expiresAt,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'updated_at') DateTime updatedAt,
       @JsonKey(name: 'image_url') String? imageUrl,
@@ -555,7 +556,7 @@ class __$OfferDataCopyWithImpl<$Res> implements _$OfferDataCopyWith<$Res> {
     Object? offerPrice = null,
     Object? offerStock = null,
     Object? status = null,
-    Object? expiresAt = null,
+    Object? expiresAt = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? imageUrl = freezed,
@@ -582,10 +583,10 @@ class __$OfferDataCopyWithImpl<$Res> implements _$OfferDataCopyWith<$Res> {
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
-      expiresAt: null == expiresAt
+      expiresAt: freezed == expiresAt
           ? _self.expiresAt
           : expiresAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       createdAt: null == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable

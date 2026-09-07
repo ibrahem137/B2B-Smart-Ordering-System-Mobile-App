@@ -15,36 +15,26 @@ class LedgerRepoImpl implements LedgerRepo {
 
   LedgerRepoImpl(this._local, this._remote);
 
-  // ---------------------------------------------------------------------------
-  // Cache helpers
-  // ---------------------------------------------------------------------------
-
-  @override
-  Future<LedgerResponse?> getCachedLedger({required int page}) async {
-    final cached = await _local.read(page: page);
-    return cached?.toResponse();
-  }
-
-  @override
-  Future<DateTime?> getCachedLedgerAt({required int page}) async {
-    final cached = await _local.read(page: page);
-    return cached?.cachedAt;
-  }
-
   @override
   Future<void> clearLedger({required int page}) async {
     await _local.clear(page: page);
   }
 
   @override
-  bool shouldRefreshLedger(DateTime? cachedAt) {
-    if (cachedAt == null) return true;
-    return DateTime.now().difference(cachedAt) >= CacheKeys.ledgerTtl;
+  Future<LedgerResponse?> getCachedLedger({
+    required int page,
+  }) async {
+    final cached = await _local.read(page: page);
+    return cached?.toResponse();
   }
 
-  // ---------------------------------------------------------------------------
-  // Main fetch
-  // ---------------------------------------------------------------------------
+  @override
+  Future<DateTime?> getCachedLedgerAt({
+    required int page,
+  }) async {
+    final cached = await _local.read(page: page);
+    return cached?.cachedAt;
+  }
 
   @override
   Future<ApiResult<LedgerResponse>> getLedger({
@@ -54,17 +44,17 @@ class LedgerRepoImpl implements LedgerRepo {
     final requestKey = 'ledger_p$page';
 
     try {
-      // 🧠 1. Return cache immediately if available and not forcing refresh
       if (!forceRefresh) {
         final cached = await getCachedLedger(page: page);
+
         if (cached != null) {
           return ApiResult.success(cached);
         }
       }
 
-      // 🧠 2. Prevent duplicate in-flight requests
       if (_activeRequests.contains(requestKey)) {
         final cached = await getCachedLedger(page: page);
+
         if (cached != null) {
           return ApiResult.success(cached);
         }
@@ -72,17 +62,16 @@ class LedgerRepoImpl implements LedgerRepo {
 
       _activeRequests.add(requestKey);
 
-      // 🌐 API call
-      final response = await _remote.getLedger();
+      final response = await _remote.getLedger(page: page);
 
-      // 💾 Cache the result
-      final cacheModel = LedgerCacheModel.fromResponse(response);
+      final cacheModel =
+          LedgerCacheModel.fromResponse(response);
       await _local.save(cacheModel, page: page);
 
       return ApiResult.success(response);
     } catch (error) {
-      // 🧠 Fallback to cache on error
       final cached = await getCachedLedger(page: page);
+
       if (cached != null) {
         return ApiResult.success(cached);
       }
@@ -91,5 +80,13 @@ class LedgerRepoImpl implements LedgerRepo {
     } finally {
       _activeRequests.remove(requestKey);
     }
+  }
+
+  @override
+  bool shouldRefreshLedger(DateTime? cachedAt) {
+    if (cachedAt == null) return true;
+
+    return DateTime.now().difference(cachedAt) >=
+        CacheKeys.ledgerTtl;
   }
 }

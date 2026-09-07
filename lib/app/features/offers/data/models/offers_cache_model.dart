@@ -6,56 +6,59 @@ import 'package:B2B/app/features/offers/data/models/offers_model_response/state_
 import 'package:B2B/app/features/offers/data/models/offers_model_response/supplier_model.dart';
 import 'package:B2B/app/features/offers/data/models/offers_model_response/supplier_product_model.dart';
 import 'package:json_annotation/json_annotation.dart';
+
 import 'offers_response.dart';
 
 part 'offers_cache_model.g.dart';
 
-@JsonSerializable(explicitToJson: true)
-class OffersCacheModel {
-  final List<OfferCacheData>? data;
-  final StatsCacheModel? stats;
-  final PaginationCacheModel? pagination;
-  final String? message;
-  final dynamic errors;
-  final DateTime cachedAt;
+@JsonSerializable()
+class CategoryCacheModel {
+  final int? id;
+  final String? name;
+  final String? image;
+  final String? imageUrl;
+  final List<dynamic>? media;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
-  OffersCacheModel({
-    this.data,
-    this.stats,
-    this.pagination,
-    this.message,
-    this.errors,
-    required this.cachedAt,
+  CategoryCacheModel({
+    this.id,
+    this.name,
+    this.image,
+    this.imageUrl,
+    this.media,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  factory OffersCacheModel.fromJson(Map<String, dynamic> json) =>
-      _$OffersCacheModelFromJson(json);
+  factory CategoryCacheModel.fromJson(
+          Map<String, dynamic> json) =>
+      _$CategoryCacheModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$OffersCacheModelToJson(this);
-
-  /// FROM API → CACHE
-  factory OffersCacheModel.fromResponse(
-    OffersResponse response, {
-    DateTime? cachedAt,
-  }) {
-    return OffersCacheModel(
-      data: response.data.map(OfferCacheData.fromResponse).toList(),
-      stats: StatsCacheModel.fromResponse(response.stats),
-      pagination: PaginationCacheModel.fromResponse(response.pagination),
-      message: response.message,
-      errors: response.errors,
-      cachedAt: cachedAt ?? DateTime.now(),
+  factory CategoryCacheModel.fromResponse(Category c) {
+    return CategoryCacheModel(
+      id: c.id,
+      name: c.name,
+      image: c.image,
+      imageUrl: c.imageUrl,
+      media: c.media,
+      createdAt: c.createdAt,
+      updatedAt: c.updatedAt,
     );
   }
 
-  /// CACHE → API MODEL
-  OffersResponse toResponse() {
-    return OffersResponse(
-      data: data?.map((e) => e.toResponse()).toList() ?? [],
-      stats: stats!.toResponse(),
-      pagination: pagination!.toResponse(),
-      message: message ?? '',
-      errors: errors,
+  Map<String, dynamic> toJson() =>
+      _$CategoryCacheModelToJson(this);
+
+  Category toResponse() {
+    return Category(
+      id: id!,
+      name: name!,
+      image: image,
+      imageUrl: imageUrl,
+      media: media ?? [],
+      createdAt: createdAt!,
+      updatedAt: updatedAt!,
     );
   }
 }
@@ -86,10 +89,9 @@ class OfferCacheData {
     this.supplierProduct,
   });
 
-  factory OfferCacheData.fromJson(Map<String, dynamic> json) =>
+  factory OfferCacheData.fromJson(
+          Map<String, dynamic> json) =>
       _$OfferCacheDataFromJson(json);
-
-  Map<String, dynamic> toJson() => _$OfferCacheDataToJson(this);
 
   factory OfferCacheData.fromResponse(OfferData data) {
     return OfferCacheData(
@@ -103,9 +105,13 @@ class OfferCacheData {
       updatedAt: data.updatedAt,
       imageUrl: data.imageUrl,
       supplierProduct:
-          SupplierProductCacheModel.fromResponse(data.supplierProduct),
+          SupplierProductCacheModel.fromResponse(
+              data.supplierProduct),
     );
   }
+
+  Map<String, dynamic> toJson() =>
+      _$OfferCacheDataToJson(this);
 
   OfferData toResponse() {
     return OfferData(
@@ -114,7 +120,7 @@ class OfferCacheData {
       offerPrice: offerPrice!,
       offerStock: offerStock!,
       status: status!,
-      expiresAt: expiresAt!,
+      expiresAt: expiresAt,
       createdAt: createdAt!,
       updatedAt: updatedAt!,
       imageUrl: imageUrl,
@@ -124,121 +130,96 @@ class OfferCacheData {
 }
 
 @JsonSerializable(explicitToJson: true)
-class SupplierProductCacheModel {
-  final int? id;
-  final int? supplierId;
-  final int? productId;
-  final String? buyPrice;
-  final int? stockQuantity;
-  final String? status;
-  final SupplierCacheModel? supplier;
-  final ProductCacheModel? product;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
-  final String? imageUrl;
+class OffersCacheModel {
+  final List<OfferCacheData>? data;
+  final StatsCacheModel? stats;
+  final PaginationCacheModel? pagination;
+  final String? message;
+  final dynamic errors;
+  final DateTime cachedAt;
 
-  SupplierProductCacheModel({
-    this.id,
-    this.supplierId,
-    this.productId,
-    this.buyPrice,
-    this.stockQuantity,
-    this.status,
-    this.supplier,
-    this.product,
-    this.createdAt,
-    this.updatedAt,
-    this.imageUrl,
+  OffersCacheModel({
+    this.data,
+    this.stats,
+    this.pagination,
+    this.message,
+    this.errors,
+    required this.cachedAt,
   });
 
-  factory SupplierProductCacheModel.fromJson(Map<String, dynamic> json) =>
-      _$SupplierProductCacheModelFromJson(json);
+  factory OffersCacheModel.fromJson(
+          Map<String, dynamic> json) =>
+      _$OffersCacheModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$SupplierProductCacheModelToJson(this);
-
-  factory SupplierProductCacheModel.fromResponse(SupplierProduct model) {
-    return SupplierProductCacheModel(
-      id: model.id,
-      supplierId: model.supplierId,
-      productId: model.productId,
-      buyPrice: model.buyPrice,
-      stockQuantity: model.stockQuantity,
-      status: model.status,
-      supplier: SupplierCacheModel.fromResponse(model.supplier),
-      product: ProductCacheModel.fromResponse(model.product),
-      createdAt: model.createdAt,
-      updatedAt: model.updatedAt,
-      imageUrl: model.imageUrl,
+  /// FROM API → CACHE
+  factory OffersCacheModel.fromResponse(
+    OffersResponse response, {
+    DateTime? cachedAt,
+  }) {
+    return OffersCacheModel(
+      data: response.data
+          .map(OfferCacheData.fromResponse)
+          .toList(),
+      stats: StatsCacheModel.fromResponse(response.stats),
+      pagination: PaginationCacheModel.fromResponse(
+          response.pagination),
+      message: response.message,
+      errors: response.errors,
+      cachedAt: cachedAt ?? DateTime.now(),
     );
   }
 
-  SupplierProduct toResponse() {
-    return SupplierProduct(
-      id: id!,
-      supplierId: supplierId!,
-      productId: productId!,
-      buyPrice: buyPrice!,
-      stockQuantity: stockQuantity!,
-      status: status!,
-      supplier: supplier!.toResponse(),
-      product: product!.toResponse(),
-      createdAt: createdAt!,
-      updatedAt: updatedAt!,
-      imageUrl: imageUrl,
+  Map<String, dynamic> toJson() =>
+      _$OffersCacheModelToJson(this);
+
+  /// CACHE → API MODEL
+  OffersResponse toResponse() {
+    return OffersResponse(
+      data: data?.map((e) => e.toResponse()).toList() ?? [],
+      stats: stats!.toResponse(),
+      pagination: pagination!.toResponse(),
+      message: message ?? '',
+      errors: errors,
     );
   }
 }
 
 @JsonSerializable()
-class SupplierCacheModel {
-  final int? id;
-  final String? name;
-  final String? phone;
-  final String? email;
-  final String? address;
-  final String? status;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
+class PaginationCacheModel {
+  final int? perPage;
+  final int? currentPage;
+  final int? total;
+  final int? lastPage;
 
-  SupplierCacheModel({
-    this.id,
-    this.name,
-    this.phone,
-    this.email,
-    this.address,
-    this.status,
-    this.createdAt,
-    this.updatedAt,
+  PaginationCacheModel({
+    this.perPage,
+    this.currentPage,
+    this.total,
+    this.lastPage,
   });
 
-  factory SupplierCacheModel.fromJson(Map<String, dynamic> json) =>
-      _$SupplierCacheModelFromJson(json);
+  factory PaginationCacheModel.fromJson(
+          Map<String, dynamic> json) =>
+      _$PaginationCacheModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$SupplierCacheModelToJson(this);
-
-  factory SupplierCacheModel.fromResponse(Supplier s) {
-    return SupplierCacheModel(
-      id: s.id,
-      name: s.name,
-      phone: s.phone,
-      email: s.email,
-      address: s.address,
-      status: s.status,
-      createdAt: s.createdAt,
-      updatedAt: s.updatedAt,
+  factory PaginationCacheModel.fromResponse(Pagination p) {
+    return PaginationCacheModel(
+      perPage: p.perPage,
+      currentPage: p.currentPage,
+      total: p.total,
+      lastPage: p.lastPage,
     );
   }
 
-  Supplier toResponse() {
-    return Supplier(
-      id: id!,
-      name: name!,
-      phone: phone,
-      email: email,
-      address: address,
-      status: status!,
-      createdAt: createdAt!,
-      updatedAt: updatedAt!,
+  Map<String, dynamic> toJson() =>
+      _$PaginationCacheModelToJson(this);
+
+  Pagination toResponse() {
+    return Pagination(
+      perPage: perPage!,
+      currentPage: currentPage!,
+      total: total!,
+      lastPage: lastPage!,
     );
   }
 }
@@ -273,10 +254,9 @@ class ProductCacheModel {
     this.imageUrl,
   });
 
-  factory ProductCacheModel.fromJson(Map<String, dynamic> json) =>
+  factory ProductCacheModel.fromJson(
+          Map<String, dynamic> json) =>
       _$ProductCacheModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ProductCacheModelToJson(this);
 
   factory ProductCacheModel.fromResponse(Product p) {
     return ProductCacheModel(
@@ -294,6 +274,9 @@ class ProductCacheModel {
       imageUrl: p.imageUrl,
     );
   }
+
+  Map<String, dynamic> toJson() =>
+      _$ProductCacheModelToJson(this);
 
   Product toResponse() {
     return Product(
@@ -314,56 +297,6 @@ class ProductCacheModel {
 }
 
 @JsonSerializable()
-class CategoryCacheModel {
-  final int? id;
-  final String? name;
-  final String? image;
-  final String? imageUrl;
-  final List<dynamic>? media;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
-
-  CategoryCacheModel({
-    this.id,
-    this.name,
-    this.image,
-    this.imageUrl,
-    this.media,
-    this.createdAt,
-    this.updatedAt,
-  });
-
-  factory CategoryCacheModel.fromJson(Map<String, dynamic> json) =>
-      _$CategoryCacheModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$CategoryCacheModelToJson(this);
-
-  factory CategoryCacheModel.fromResponse(Category c) {
-    return CategoryCacheModel(
-      id: c.id,
-      name: c.name,
-      image: c.image,
-      imageUrl: c.imageUrl,
-      media: c.media,
-      createdAt: c.createdAt,
-      updatedAt: c.updatedAt,
-    );
-  }
-
-  Category toResponse() {
-    return Category(
-      id: id!,
-      name: name!,
-      image: image,
-      imageUrl: imageUrl,
-      media: media ?? [],
-      createdAt: createdAt!,
-      updatedAt: updatedAt!,
-    );
-  }
-}
-
-@JsonSerializable()
 class StatsCacheModel {
   final int? totalOffers;
   final int? availableOffers;
@@ -373,10 +306,9 @@ class StatsCacheModel {
     this.availableOffers,
   });
 
-  factory StatsCacheModel.fromJson(Map<String, dynamic> json) =>
+  factory StatsCacheModel.fromJson(
+          Map<String, dynamic> json) =>
       _$StatsCacheModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$StatsCacheModelToJson(this);
 
   factory StatsCacheModel.fromResponse(Stats s) {
     return StatsCacheModel(
@@ -384,6 +316,9 @@ class StatsCacheModel {
       availableOffers: s.availableOffers,
     );
   }
+
+  Map<String, dynamic> toJson() =>
+      _$StatsCacheModelToJson(this);
 
   Stats toResponse() {
     return Stats(
@@ -394,39 +329,128 @@ class StatsCacheModel {
 }
 
 @JsonSerializable()
-class PaginationCacheModel {
-  final int? perPage;
-  final int? currentPage;
-  final int? total;
-  final int? lastPage;
+class SupplierCacheModel {
+  final int? id;
+  final String? name;
+  final String? phone;
+  final String? email;
+  final String? address;
+  final String? status;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
-  PaginationCacheModel({
-    this.perPage,
-    this.currentPage,
-    this.total,
-    this.lastPage,
+  SupplierCacheModel({
+    this.id,
+    this.name,
+    this.phone,
+    this.email,
+    this.address,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  factory PaginationCacheModel.fromJson(Map<String, dynamic> json) =>
-      _$PaginationCacheModelFromJson(json);
+  factory SupplierCacheModel.fromJson(
+          Map<String, dynamic> json) =>
+      _$SupplierCacheModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$PaginationCacheModelToJson(this);
-
-  factory PaginationCacheModel.fromResponse(Pagination p) {
-    return PaginationCacheModel(
-      perPage: p.perPage,
-      currentPage: p.currentPage,
-      total: p.total,
-      lastPage: p.lastPage,
+  factory SupplierCacheModel.fromResponse(Supplier s) {
+    return SupplierCacheModel(
+      id: s.id,
+      name: s.name,
+      phone: s.phone,
+      email: s.email,
+      address: s.address,
+      status: s.status,
+      createdAt: s.createdAt,
+      updatedAt: s.updatedAt,
     );
   }
 
-  Pagination toResponse() {
-    return Pagination(
-      perPage: perPage!,
-      currentPage: currentPage!,
-      total: total!,
-      lastPage: lastPage!,
+  Map<String, dynamic> toJson() =>
+      _$SupplierCacheModelToJson(this);
+
+  Supplier toResponse() {
+    return Supplier(
+      id: id!,
+      name: name!,
+      phone: phone,
+      email: email,
+      address: address,
+      status: status!,
+      createdAt: createdAt!,
+      updatedAt: updatedAt!,
+    );
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class SupplierProductCacheModel {
+  final int? id;
+  final int? supplierId;
+  final int? productId;
+  final String? buyPrice;
+  final int? stockQuantity;
+  final String? status;
+  final SupplierCacheModel? supplier;
+  final ProductCacheModel? product;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final String? imageUrl;
+
+  SupplierProductCacheModel({
+    this.id,
+    this.supplierId,
+    this.productId,
+    this.buyPrice,
+    this.stockQuantity,
+    this.status,
+    this.supplier,
+    this.product,
+    this.createdAt,
+    this.updatedAt,
+    this.imageUrl,
+  });
+
+  factory SupplierProductCacheModel.fromJson(
+          Map<String, dynamic> json) =>
+      _$SupplierProductCacheModelFromJson(json);
+
+  factory SupplierProductCacheModel.fromResponse(
+      SupplierProduct model) {
+    return SupplierProductCacheModel(
+      id: model.id,
+      supplierId: model.supplierId,
+      productId: model.productId,
+      buyPrice: model.buyPrice,
+      stockQuantity: model.stockQuantity,
+      status: model.status,
+      supplier:
+          SupplierCacheModel.fromResponse(model.supplier),
+      product:
+          ProductCacheModel.fromResponse(model.product),
+      createdAt: model.createdAt,
+      updatedAt: model.updatedAt,
+      imageUrl: model.imageUrl,
+    );
+  }
+
+  Map<String, dynamic> toJson() =>
+      _$SupplierProductCacheModelToJson(this);
+
+  SupplierProduct toResponse() {
+    return SupplierProduct(
+      id: id!,
+      supplierId: supplierId!,
+      productId: productId!,
+      buyPrice: buyPrice!,
+      stockQuantity: stockQuantity!,
+      status: status!,
+      supplier: supplier!.toResponse(),
+      product: product!.toResponse(),
+      createdAt: createdAt!,
+      updatedAt: updatedAt!,
+      imageUrl: imageUrl,
     );
   }
 }

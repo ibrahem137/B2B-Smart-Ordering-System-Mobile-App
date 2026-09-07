@@ -6,20 +6,6 @@ part of 'ledger_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_LedgerResponse _$LedgerResponseFromJson(Map<String, dynamic> json) =>
-    _LedgerResponse(
-      data: LedgerData.fromJson(json['data'] as Map<String, dynamic>),
-      message: json['message'] as String,
-      errors: json['errors'],
-    );
-
-Map<String, dynamic> _$LedgerResponseToJson(_LedgerResponse instance) =>
-    <String, dynamic>{
-      'data': instance.data,
-      'message': instance.message,
-      'errors': instance.errors,
-    };
-
 _LedgerData _$LedgerDataFromJson(Map<String, dynamic> json) => _LedgerData(
       entries: LedgerEntries.fromJson(json['entries'] as Map<String, dynamic>),
       summary: LedgerSummary.fromJson(json['summary'] as Map<String, dynamic>),
@@ -38,7 +24,7 @@ _LedgerEntries _$LedgerEntriesFromJson(Map<String, dynamic> json) =>
           .map((e) => LedgerEntry.fromJson(e as Map<String, dynamic>))
           .toList(),
       firstPageUrl: json['first_page_url'] as String,
-      from: (json['from'] as num).toInt(),
+      from: (json['from'] as num?)?.toInt(),
       lastPage: (json['last_page'] as num).toInt(),
       lastPageUrl: json['last_page_url'] as String,
       links: (json['links'] as List<dynamic>)
@@ -48,7 +34,7 @@ _LedgerEntries _$LedgerEntriesFromJson(Map<String, dynamic> json) =>
       path: json['path'] as String,
       perPage: (json['per_page'] as num).toInt(),
       prevPageUrl: json['prev_page_url'] as String?,
-      to: (json['to'] as num).toInt(),
+      to: (json['to'] as num?)?.toInt(),
       total: (json['total'] as num).toInt(),
     );
 
@@ -103,20 +89,18 @@ const _$EntryTypeEnumMap = {
   EntryType.debit: 'debit',
 };
 
-_PaginationLink _$PaginationLinkFromJson(Map<String, dynamic> json) =>
-    _PaginationLink(
-      url: json['url'] as String?,
-      label: json['label'] as String,
-      page: (json['page'] as num?)?.toInt(),
-      active: json['active'] as bool,
+_LedgerResponse _$LedgerResponseFromJson(Map<String, dynamic> json) =>
+    _LedgerResponse(
+      data: LedgerData.fromJson(json['data'] as Map<String, dynamic>),
+      message: json['message'] as String,
+      errors: json['errors'],
     );
 
-Map<String, dynamic> _$PaginationLinkToJson(_PaginationLink instance) =>
+Map<String, dynamic> _$LedgerResponseToJson(_LedgerResponse instance) =>
     <String, dynamic>{
-      'url': instance.url,
-      'label': instance.label,
-      'page': instance.page,
-      'active': instance.active,
+      'data': instance.data,
+      'message': instance.message,
+      'errors': instance.errors,
     };
 
 _LedgerSummary _$LedgerSummaryFromJson(Map<String, dynamic> json) =>
@@ -131,4 +115,20 @@ Map<String, dynamic> _$LedgerSummaryToJson(_LedgerSummary instance) =>
       'total_credits': instance.totalCredits,
       'total_debits': instance.totalDebits,
       'balance': instance.balance,
+    };
+
+_PaginationLink _$PaginationLinkFromJson(Map<String, dynamic> json) =>
+    _PaginationLink(
+      url: json['url'] as String?,
+      label: json['label'] as String,
+      page: (json['page'] as num?)?.toInt(),
+      active: json['active'] as bool,
+    );
+
+Map<String, dynamic> _$PaginationLinkToJson(_PaginationLink instance) =>
+    <String, dynamic>{
+      'url': instance.url,
+      'label': instance.label,
+      'page': instance.page,
+      'active': instance.active,
     };

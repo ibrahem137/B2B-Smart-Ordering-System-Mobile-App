@@ -12,7 +12,9 @@ _OfferData _$OfferDataFromJson(Map<String, dynamic> json) => _OfferData(
       offerPrice: json['offer_price'] as String,
       offerStock: (json['offer_stock'] as num).toInt(),
       status: json['status'] as String,
-      expiresAt: DateTime.parse(json['expires_at'] as String),
+      expiresAt: json['expires_at'] == null
+          ? null
+          : DateTime.parse(json['expires_at'] as String),
       createdAt: DateTime.parse(json['created_at'] as String),
       updatedAt: DateTime.parse(json['updated_at'] as String),
       imageUrl: json['image_url'] as String?,
@@ -27,7 +29,7 @@ Map<String, dynamic> _$OfferDataToJson(_OfferData instance) =>
       'offer_price': instance.offerPrice,
       'offer_stock': instance.offerStock,
       'status': instance.status,
-      'expires_at': instance.expiresAt.toIso8601String(),
+      'expires_at': instance.expiresAt?.toIso8601String(),
       'created_at': instance.createdAt.toIso8601String(),
       'updated_at': instance.updatedAt.toIso8601String(),
       'image_url': instance.imageUrl,

@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:B2B/app/features/offers/logic/offers_cubit/offers_state.dart';
-import 'package:bloc/bloc.dart';
 import 'package:B2B/app/core/networking/api_result.dart';
 import 'package:B2B/app/features/offers/data/repos/offers_repos/offers_repo.dart';
+import 'package:B2B/app/features/offers/logic/offers_cubit/offers_state.dart';
+import 'package:bloc/bloc.dart';
 
 class OffersCubit extends Cubit<OffersState> {
   final OffersRepo _offersRepo;
@@ -18,8 +18,41 @@ class OffersCubit extends Cubit<OffersState> {
   String _status = '';
   String _search = '';
 
-  OffersCubit(this._offersRepo) : super(const OffersState.initial()) {
+  OffersCubit(this._offersRepo)
+      : super(const OffersState.initial()) {
     load();
+  }
+
+  Future<void> clearCache() async {
+    await _offersRepo.clearOffers(
+      page: _page,
+      category: _category,
+      status: _status,
+      search: _search,
+    );
+
+    await load(
+      page: _page,
+      category: _category,
+      status: _status,
+      search: _search,
+    );
+  }
+
+  @override
+  Future<void> close() {
+    _searchDebounce?.cancel();
+    _periodicTimer?.cancel();
+    return super.close();
+  }
+
+  void filterByCategory(int category) {
+    load(
+      page: 1,
+      category: category,
+      status: _status,
+      search: _search,
+    );
   }
 
   Future<void> load({
@@ -46,18 +79,11 @@ class OffersCubit extends Cubit<OffersState> {
 
     /// ✅ عرض الكاش مباشرة
     if (cached != null) {
+      // اعرض الكاش مباشرة حتى تبقى الشاشة سريعة.
       emit(OffersState.success(cached));
 
-      final cachedAt = await _offersRepo.getCachedOffersAt(
-        page: page,
-        category: category,
-        status: status,
-        search: search,
-      );
-
-      if (_offersRepo.shouldRefreshOffers(cachedAt)) {
-        unawaited(_refreshSilently());
-      }
+      // دائماً تحقق من السيرفر بالخلفية حتى تظهر تعديلات الـDashboard فوراً.
+      unawaited(_refreshSilently());
 
       startAutoRefresh();
 
@@ -179,6 +205,31 @@ class OffersCubit extends Cubit<OffersState> {
     _isRefreshing = false;
   }
 
+  void search(String value) {
+    _searchDebounce?.cancel();
+
+    _searchDebounce = Timer(
+      const Duration(milliseconds: 600),
+      () {
+        load(
+          page: 1,
+          category: _category,
+          status: _status,
+          search: value,
+        );
+      },
+    );
+  }
+
+  void startAutoRefresh() {
+    _periodicTimer?.cancel();
+
+    _periodicTimer = Timer.periodic(
+      const Duration(minutes: 5),
+      (_) => _refreshSilently(),
+    );
+  }
+
   Future<void> _refreshSilently() async {
     if (_isRefreshing) return;
 
@@ -215,62 +266,5 @@ class OffersCubit extends Cubit<OffersState> {
     );
 
     _isRefreshing = false;
-  }
-
-  Future<void> clearCache() async {
-    await _offersRepo.clearOffers(
-      page: _page,
-      category: _category,
-      status: _status,
-      search: _search,
-    );
-
-    await load(
-      page: _page,
-      category: _category,
-      status: _status,
-      search: _search,
-    );
-  }
-
-  void startAutoRefresh() {
-    _periodicTimer?.cancel();
-
-    _periodicTimer = Timer.periodic(
-      const Duration(minutes: 5),
-      (_) => _refreshSilently(),
-    );
-  }
-
-  @override
-  Future<void> close() {
-    _searchDebounce?.cancel();
-    _periodicTimer?.cancel();
-    return super.close();
-  }
-
-  void search(String value) {
-    _searchDebounce?.cancel();
-
-    _searchDebounce = Timer(
-      const Duration(milliseconds: 600),
-      () {
-        load(
-          page: 1,
-          category: _category,
-          status: _status,
-          search: value,
-        );
-      },
-    );
-  }
-
-  void filterByCategory(int category) {
-    load(
-      page: 1,
-      category: category,
-      status: _status,
-      search: _search,
-    );
   }
 }

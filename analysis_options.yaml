@@ -7,4 +7,12 @@ analyzer:
   errors:
     unused_element: ignore 
     deprecated_member_use: ignore
+  exclude:
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
 

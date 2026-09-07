@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+
 import 'ledger_response.dart';
 
 part 'ledger_cache_model.g.dart';
@@ -25,10 +26,9 @@ class LedgerCacheModel {
     required this.cachedAt,
   });
 
-  factory LedgerCacheModel.fromJson(Map<String, dynamic> json) =>
+  factory LedgerCacheModel.fromJson(
+          Map<String, dynamic> json) =>
       _$LedgerCacheModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$LedgerCacheModelToJson(this);
 
   /// FROM API → CACHE
   factory LedgerCacheModel.fromResponse(
@@ -39,14 +39,18 @@ class LedgerCacheModel {
       data: response.data.entries.data
           .map(LedgerEntryCacheModel.fromResponse)
           .toList(),
-      summary: LedgerSummaryCacheModel.fromResponse(response.data.summary),
-      pagination:
-          LedgerPaginationCacheModel.fromResponse(response.data.entries),
+      summary: LedgerSummaryCacheModel.fromResponse(
+          response.data.summary),
+      pagination: LedgerPaginationCacheModel.fromResponse(
+          response.data.entries),
       message: response.message,
       errors: response.errors,
       cachedAt: cachedAt ?? DateTime.now(),
     );
   }
+
+  Map<String, dynamic> toJson() =>
+      _$LedgerCacheModelToJson(this);
 
   /// CACHE → API MODEL
   LedgerResponse toResponse() {
@@ -95,12 +99,12 @@ class LedgerEntryCacheModel {
     this.updatedAt,
   });
 
-  factory LedgerEntryCacheModel.fromJson(Map<String, dynamic> json) =>
+  factory LedgerEntryCacheModel.fromJson(
+          Map<String, dynamic> json) =>
       _$LedgerEntryCacheModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$LedgerEntryCacheModelToJson(this);
-
-  factory LedgerEntryCacheModel.fromResponse(LedgerEntry e) {
+  factory LedgerEntryCacheModel.fromResponse(
+      LedgerEntry e) {
     return LedgerEntryCacheModel(
       id: e.id,
       storeId: e.storeId,
@@ -116,6 +120,9 @@ class LedgerEntryCacheModel {
     );
   }
 
+  Map<String, dynamic> toJson() =>
+      _$LedgerEntryCacheModelToJson(this);
+
   LedgerEntry toResponse() {
     return LedgerEntry(
       id: id!,
@@ -129,44 +136,6 @@ class LedgerEntryCacheModel {
       createdByAdminId: createdByAdminId,
       createdAt: createdAt!,
       updatedAt: updatedAt!,
-    );
-  }
-}
-
-// ---------------------------------------------------------------------------
-// Summary cache model
-// ---------------------------------------------------------------------------
-
-@JsonSerializable()
-class LedgerSummaryCacheModel {
-  final double? totalCredits;
-  final double? totalDebits;
-  final double? balance;
-
-  LedgerSummaryCacheModel({
-    this.totalCredits,
-    this.totalDebits,
-    this.balance,
-  });
-
-  factory LedgerSummaryCacheModel.fromJson(Map<String, dynamic> json) =>
-      _$LedgerSummaryCacheModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$LedgerSummaryCacheModelToJson(this);
-
-  factory LedgerSummaryCacheModel.fromResponse(LedgerSummary s) {
-    return LedgerSummaryCacheModel(
-      totalCredits: s.totalCredits,
-      totalDebits: s.totalDebits,
-      balance: s.balance,
-    );
-  }
-
-  LedgerSummary toResponse() {
-    return LedgerSummary(
-      totalCredits: totalCredits!,
-      totalDebits: totalDebits!,
-      balance: balance!,
     );
   }
 }
@@ -203,12 +172,12 @@ class LedgerPaginationCacheModel {
     this.prevPageUrl,
   });
 
-  factory LedgerPaginationCacheModel.fromJson(Map<String, dynamic> json) =>
+  factory LedgerPaginationCacheModel.fromJson(
+          Map<String, dynamic> json) =>
       _$LedgerPaginationCacheModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$LedgerPaginationCacheModelToJson(this);
-
-  factory LedgerPaginationCacheModel.fromResponse(LedgerEntries e) {
+  factory LedgerPaginationCacheModel.fromResponse(
+      LedgerEntries e) {
     return LedgerPaginationCacheModel(
       currentPage: e.currentPage,
       lastPage: e.lastPage,
@@ -224,16 +193,20 @@ class LedgerPaginationCacheModel {
     );
   }
 
-  /// Reconstruct [LedgerEntries] — links are not cached (rebuilding them
-  /// from the stored URLs is intentionally omitted to keep the cache lean).
+  Map<String, dynamic> toJson() =>
+      _$LedgerPaginationCacheModelToJson(this);
+
   LedgerEntries toResponse(List<LedgerEntry> entries) {
     return LedgerEntries(
       currentPage: currentPage!,
       lastPage: lastPage!,
       perPage: perPage!,
       total: total!,
-      from: from!,
-      to: to!,
+
+      // Nullable because an empty Laravel paginator returns null.
+      from: from,
+      to: to,
+
       path: path!,
       firstPageUrl: firstPageUrl!,
       lastPageUrl: lastPageUrl!,
@@ -241,6 +214,47 @@ class LedgerPaginationCacheModel {
       prevPageUrl: prevPageUrl,
       links: [],
       data: entries,
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Summary cache model
+// ---------------------------------------------------------------------------
+
+@JsonSerializable()
+class LedgerSummaryCacheModel {
+  final double? totalCredits;
+  final double? totalDebits;
+  final double? balance;
+
+  LedgerSummaryCacheModel({
+    this.totalCredits,
+    this.totalDebits,
+    this.balance,
+  });
+
+  factory LedgerSummaryCacheModel.fromJson(
+          Map<String, dynamic> json) =>
+      _$LedgerSummaryCacheModelFromJson(json);
+
+  factory LedgerSummaryCacheModel.fromResponse(
+      LedgerSummary s) {
+    return LedgerSummaryCacheModel(
+      totalCredits: s.totalCredits,
+      totalDebits: s.totalDebits,
+      balance: s.balance,
+    );
+  }
+
+  Map<String, dynamic> toJson() =>
+      _$LedgerSummaryCacheModelToJson(this);
+
+  LedgerSummary toResponse() {
+    return LedgerSummary(
+      totalCredits: totalCredits!,
+      totalDebits: totalDebits!,
+      balance: balance!,
     );
   }
 }

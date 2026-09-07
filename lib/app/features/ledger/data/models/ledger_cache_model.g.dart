@@ -73,22 +73,6 @@ Map<String, dynamic> _$LedgerEntryCacheModelToJson(
       'updatedAt': instance.updatedAt?.toIso8601String(),
     };
 
-LedgerSummaryCacheModel _$LedgerSummaryCacheModelFromJson(
-        Map<String, dynamic> json) =>
-    LedgerSummaryCacheModel(
-      totalCredits: (json['totalCredits'] as num?)?.toDouble(),
-      totalDebits: (json['totalDebits'] as num?)?.toDouble(),
-      balance: (json['balance'] as num?)?.toDouble(),
-    );
-
-Map<String, dynamic> _$LedgerSummaryCacheModelToJson(
-        LedgerSummaryCacheModel instance) =>
-    <String, dynamic>{
-      'totalCredits': instance.totalCredits,
-      'totalDebits': instance.totalDebits,
-      'balance': instance.balance,
-    };
-
 LedgerPaginationCacheModel _$LedgerPaginationCacheModelFromJson(
         Map<String, dynamic> json) =>
     LedgerPaginationCacheModel(
@@ -119,4 +103,20 @@ Map<String, dynamic> _$LedgerPaginationCacheModelToJson(
       'lastPageUrl': instance.lastPageUrl,
       'nextPageUrl': instance.nextPageUrl,
       'prevPageUrl': instance.prevPageUrl,
+    };
+
+LedgerSummaryCacheModel _$LedgerSummaryCacheModelFromJson(
+        Map<String, dynamic> json) =>
+    LedgerSummaryCacheModel(
+      totalCredits: (json['totalCredits'] as num?)?.toDouble(),
+      totalDebits: (json['totalDebits'] as num?)?.toDouble(),
+      balance: (json['balance'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$LedgerSummaryCacheModelToJson(
+        LedgerSummaryCacheModel instance) =>
+    <String, dynamic>{
+      'totalCredits': instance.totalCredits,
+      'totalDebits': instance.totalDebits,
+      'balance': instance.balance,
     };

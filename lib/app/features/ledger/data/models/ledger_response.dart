@@ -4,19 +4,15 @@ part 'ledger_response.freezed.dart';
 part 'ledger_response.g.dart';
 
 // ---------------------------------------------------------------------------
-// Root response
+// data.entries.data[] (individual ledger entry)
 // ---------------------------------------------------------------------------
 
-@freezed
-abstract class LedgerResponse with _$LedgerResponse {
-  const factory LedgerResponse({
-    required LedgerData data,
-    required String message,
-    dynamic errors,
-  }) = _LedgerResponse;
+enum EntryType {
+  @JsonValue('credit')
+  credit,
 
-  factory LedgerResponse.fromJson(Map<String, dynamic> json) =>
-      _$LedgerResponseFromJson(json);
+  @JsonValue('debit')
+  debit,
 }
 
 // ---------------------------------------------------------------------------
@@ -35,7 +31,7 @@ abstract class LedgerData with _$LedgerData {
 }
 
 // ---------------------------------------------------------------------------
-// data.entries  (paginated list)
+// data.entries (paginated list)
 // ---------------------------------------------------------------------------
 
 @freezed
@@ -43,32 +39,28 @@ abstract class LedgerEntries with _$LedgerEntries {
   const factory LedgerEntries({
     @JsonKey(name: 'current_page') required int currentPage,
     required List<LedgerEntry> data,
-    @JsonKey(name: 'first_page_url') required String firstPageUrl,
-    required int from,
+    @JsonKey(name: 'first_page_url')
+    required String firstPageUrl,
+
+    // Laravel returns null when the paginator has no entries.
+    int? from,
     @JsonKey(name: 'last_page') required int lastPage,
-    @JsonKey(name: 'last_page_url') required String lastPageUrl,
+    @JsonKey(name: 'last_page_url')
+    required String lastPageUrl,
     required List<PaginationLink> links,
     @JsonKey(name: 'next_page_url') String? nextPageUrl,
     required String path,
     @JsonKey(name: 'per_page') required int perPage,
     @JsonKey(name: 'prev_page_url') String? prevPageUrl,
-    required int to,
+
+    // Laravel returns null when the paginator has no entries.
+    int? to,
     required int total,
   }) = _LedgerEntries;
 
-  factory LedgerEntries.fromJson(Map<String, dynamic> json) =>
+  factory LedgerEntries.fromJson(
+          Map<String, dynamic> json) =>
       _$LedgerEntriesFromJson(json);
-}
-
-// ---------------------------------------------------------------------------
-// data.entries.data[]  (individual ledger entry)
-// ---------------------------------------------------------------------------
-
-enum EntryType {
-  @JsonValue('credit')
-  credit,
-  @JsonValue('debit')
-  debit,
 }
 
 @freezed
@@ -77,14 +69,19 @@ abstract class LedgerEntry with _$LedgerEntry {
     required int id,
     @JsonKey(name: 'store_id') required int storeId,
     required EntryType type,
-    @JsonKey(name: 'source_type') required String sourceType,
+    @JsonKey(name: 'source_type')
+    required String sourceType,
     @JsonKey(name: 'source_id') required int sourceId,
     required String amount,
-    @JsonKey(name: 'occurred_at') required DateTime occurredAt,
+    @JsonKey(name: 'occurred_at')
+    required DateTime occurredAt,
     String? notes,
-    @JsonKey(name: 'created_by_admin_id') int? createdByAdminId,
-    @JsonKey(name: 'created_at') required DateTime createdAt,
-    @JsonKey(name: 'updated_at') required DateTime updatedAt,
+    @JsonKey(name: 'created_by_admin_id')
+    int? createdByAdminId,
+    @JsonKey(name: 'created_at')
+    required DateTime createdAt,
+    @JsonKey(name: 'updated_at')
+    required DateTime updatedAt,
   }) = _LedgerEntry;
 
   factory LedgerEntry.fromJson(Map<String, dynamic> json) =>
@@ -92,7 +89,43 @@ abstract class LedgerEntry with _$LedgerEntry {
 }
 
 // ---------------------------------------------------------------------------
-// data.entries.links[]  (pagination links)
+// Root response
+// ---------------------------------------------------------------------------
+
+@freezed
+abstract class LedgerResponse with _$LedgerResponse {
+  const factory LedgerResponse({
+    required LedgerData data,
+    required String message,
+    dynamic errors,
+  }) = _LedgerResponse;
+
+  factory LedgerResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$LedgerResponseFromJson(json);
+}
+
+// ---------------------------------------------------------------------------
+// data.summary
+// ---------------------------------------------------------------------------
+
+@freezed
+abstract class LedgerSummary with _$LedgerSummary {
+  const factory LedgerSummary({
+    @JsonKey(name: 'total_credits')
+    required double totalCredits,
+    @JsonKey(name: 'total_debits')
+    required double totalDebits,
+    required double balance,
+  }) = _LedgerSummary;
+
+  factory LedgerSummary.fromJson(
+          Map<String, dynamic> json) =>
+      _$LedgerSummaryFromJson(json);
+}
+
+// ---------------------------------------------------------------------------
+// data.entries.links[] (pagination links)
 // ---------------------------------------------------------------------------
 
 @freezed
@@ -104,22 +137,7 @@ abstract class PaginationLink with _$PaginationLink {
     required bool active,
   }) = _PaginationLink;
 
-  factory PaginationLink.fromJson(Map<String, dynamic> json) =>
+  factory PaginationLink.fromJson(
+          Map<String, dynamic> json) =>
       _$PaginationLinkFromJson(json);
-}
-
-// ---------------------------------------------------------------------------
-// data.summary
-// ---------------------------------------------------------------------------
-
-@freezed
-abstract class LedgerSummary with _$LedgerSummary {
-  const factory LedgerSummary({
-    @JsonKey(name: 'total_credits') required double totalCredits,
-    @JsonKey(name: 'total_debits') required double totalDebits,
-    required double balance,
-  }) = _LedgerSummary;
-
-  factory LedgerSummary.fromJson(Map<String, dynamic> json) =>
-      _$LedgerSummaryFromJson(json);
 }

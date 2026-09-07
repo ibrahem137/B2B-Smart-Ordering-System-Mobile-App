@@ -6,31 +6,30 @@ part of 'offers_cache_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-OffersCacheModel _$OffersCacheModelFromJson(Map<String, dynamic> json) =>
-    OffersCacheModel(
-      data: (json['data'] as List<dynamic>?)
-          ?.map((e) => OfferCacheData.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      stats: json['stats'] == null
+CategoryCacheModel _$CategoryCacheModelFromJson(Map<String, dynamic> json) =>
+    CategoryCacheModel(
+      id: (json['id'] as num?)?.toInt(),
+      name: json['name'] as String?,
+      image: json['image'] as String?,
+      imageUrl: json['imageUrl'] as String?,
+      media: json['media'] as List<dynamic>?,
+      createdAt: json['createdAt'] == null
           ? null
-          : StatsCacheModel.fromJson(json['stats'] as Map<String, dynamic>),
-      pagination: json['pagination'] == null
+          : DateTime.parse(json['createdAt'] as String),
+      updatedAt: json['updatedAt'] == null
           ? null
-          : PaginationCacheModel.fromJson(
-              json['pagination'] as Map<String, dynamic>),
-      message: json['message'] as String?,
-      errors: json['errors'],
-      cachedAt: DateTime.parse(json['cachedAt'] as String),
+          : DateTime.parse(json['updatedAt'] as String),
     );
 
-Map<String, dynamic> _$OffersCacheModelToJson(OffersCacheModel instance) =>
+Map<String, dynamic> _$CategoryCacheModelToJson(CategoryCacheModel instance) =>
     <String, dynamic>{
-      'data': instance.data?.map((e) => e.toJson()).toList(),
-      'stats': instance.stats?.toJson(),
-      'pagination': instance.pagination?.toJson(),
-      'message': instance.message,
-      'errors': instance.errors,
-      'cachedAt': instance.cachedAt.toIso8601String(),
+      'id': instance.id,
+      'name': instance.name,
+      'image': instance.image,
+      'imageUrl': instance.imageUrl,
+      'media': instance.media,
+      'createdAt': instance.createdAt?.toIso8601String(),
+      'updatedAt': instance.updatedAt?.toIso8601String(),
     };
 
 OfferCacheData _$OfferCacheDataFromJson(Map<String, dynamic> json) =>
@@ -70,73 +69,49 @@ Map<String, dynamic> _$OfferCacheDataToJson(OfferCacheData instance) =>
       'supplierProduct': instance.supplierProduct?.toJson(),
     };
 
-SupplierProductCacheModel _$SupplierProductCacheModelFromJson(
-        Map<String, dynamic> json) =>
-    SupplierProductCacheModel(
-      id: (json['id'] as num?)?.toInt(),
-      supplierId: (json['supplierId'] as num?)?.toInt(),
-      productId: (json['productId'] as num?)?.toInt(),
-      buyPrice: json['buyPrice'] as String?,
-      stockQuantity: (json['stockQuantity'] as num?)?.toInt(),
-      status: json['status'] as String?,
-      supplier: json['supplier'] == null
+OffersCacheModel _$OffersCacheModelFromJson(Map<String, dynamic> json) =>
+    OffersCacheModel(
+      data: (json['data'] as List<dynamic>?)
+          ?.map((e) => OfferCacheData.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      stats: json['stats'] == null
           ? null
-          : SupplierCacheModel.fromJson(
-              json['supplier'] as Map<String, dynamic>),
-      product: json['product'] == null
+          : StatsCacheModel.fromJson(json['stats'] as Map<String, dynamic>),
+      pagination: json['pagination'] == null
           ? null
-          : ProductCacheModel.fromJson(json['product'] as Map<String, dynamic>),
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
-      imageUrl: json['imageUrl'] as String?,
+          : PaginationCacheModel.fromJson(
+              json['pagination'] as Map<String, dynamic>),
+      message: json['message'] as String?,
+      errors: json['errors'],
+      cachedAt: DateTime.parse(json['cachedAt'] as String),
     );
 
-Map<String, dynamic> _$SupplierProductCacheModelToJson(
-        SupplierProductCacheModel instance) =>
+Map<String, dynamic> _$OffersCacheModelToJson(OffersCacheModel instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'supplierId': instance.supplierId,
-      'productId': instance.productId,
-      'buyPrice': instance.buyPrice,
-      'stockQuantity': instance.stockQuantity,
-      'status': instance.status,
-      'supplier': instance.supplier?.toJson(),
-      'product': instance.product?.toJson(),
-      'createdAt': instance.createdAt?.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
-      'imageUrl': instance.imageUrl,
+      'data': instance.data?.map((e) => e.toJson()).toList(),
+      'stats': instance.stats?.toJson(),
+      'pagination': instance.pagination?.toJson(),
+      'message': instance.message,
+      'errors': instance.errors,
+      'cachedAt': instance.cachedAt.toIso8601String(),
     };
 
-SupplierCacheModel _$SupplierCacheModelFromJson(Map<String, dynamic> json) =>
-    SupplierCacheModel(
-      id: (json['id'] as num?)?.toInt(),
-      name: json['name'] as String?,
-      phone: json['phone'] as String?,
-      email: json['email'] as String?,
-      address: json['address'] as String?,
-      status: json['status'] as String?,
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
+PaginationCacheModel _$PaginationCacheModelFromJson(
+        Map<String, dynamic> json) =>
+    PaginationCacheModel(
+      perPage: (json['perPage'] as num?)?.toInt(),
+      currentPage: (json['currentPage'] as num?)?.toInt(),
+      total: (json['total'] as num?)?.toInt(),
+      lastPage: (json['lastPage'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$SupplierCacheModelToJson(SupplierCacheModel instance) =>
+Map<String, dynamic> _$PaginationCacheModelToJson(
+        PaginationCacheModel instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'phone': instance.phone,
-      'email': instance.email,
-      'address': instance.address,
-      'status': instance.status,
-      'createdAt': instance.createdAt?.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'perPage': instance.perPage,
+      'currentPage': instance.currentPage,
+      'total': instance.total,
+      'lastPage': instance.lastPage,
     };
 
 ProductCacheModel _$ProductCacheModelFromJson(Map<String, dynamic> json) =>
@@ -178,32 +153,6 @@ Map<String, dynamic> _$ProductCacheModelToJson(ProductCacheModel instance) =>
       'imageUrl': instance.imageUrl,
     };
 
-CategoryCacheModel _$CategoryCacheModelFromJson(Map<String, dynamic> json) =>
-    CategoryCacheModel(
-      id: (json['id'] as num?)?.toInt(),
-      name: json['name'] as String?,
-      image: json['image'] as String?,
-      imageUrl: json['imageUrl'] as String?,
-      media: json['media'] as List<dynamic>?,
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
-    );
-
-Map<String, dynamic> _$CategoryCacheModelToJson(CategoryCacheModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'image': instance.image,
-      'imageUrl': instance.imageUrl,
-      'media': instance.media,
-      'createdAt': instance.createdAt?.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
-    };
-
 StatsCacheModel _$StatsCacheModelFromJson(Map<String, dynamic> json) =>
     StatsCacheModel(
       totalOffers: (json['totalOffers'] as num?)?.toInt(),
@@ -216,20 +165,71 @@ Map<String, dynamic> _$StatsCacheModelToJson(StatsCacheModel instance) =>
       'availableOffers': instance.availableOffers,
     };
 
-PaginationCacheModel _$PaginationCacheModelFromJson(
-        Map<String, dynamic> json) =>
-    PaginationCacheModel(
-      perPage: (json['perPage'] as num?)?.toInt(),
-      currentPage: (json['currentPage'] as num?)?.toInt(),
-      total: (json['total'] as num?)?.toInt(),
-      lastPage: (json['lastPage'] as num?)?.toInt(),
+SupplierCacheModel _$SupplierCacheModelFromJson(Map<String, dynamic> json) =>
+    SupplierCacheModel(
+      id: (json['id'] as num?)?.toInt(),
+      name: json['name'] as String?,
+      phone: json['phone'] as String?,
+      email: json['email'] as String?,
+      address: json['address'] as String?,
+      status: json['status'] as String?,
+      createdAt: json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
+      updatedAt: json['updatedAt'] == null
+          ? null
+          : DateTime.parse(json['updatedAt'] as String),
     );
 
-Map<String, dynamic> _$PaginationCacheModelToJson(
-        PaginationCacheModel instance) =>
+Map<String, dynamic> _$SupplierCacheModelToJson(SupplierCacheModel instance) =>
     <String, dynamic>{
-      'perPage': instance.perPage,
-      'currentPage': instance.currentPage,
-      'total': instance.total,
-      'lastPage': instance.lastPage,
+      'id': instance.id,
+      'name': instance.name,
+      'phone': instance.phone,
+      'email': instance.email,
+      'address': instance.address,
+      'status': instance.status,
+      'createdAt': instance.createdAt?.toIso8601String(),
+      'updatedAt': instance.updatedAt?.toIso8601String(),
+    };
+
+SupplierProductCacheModel _$SupplierProductCacheModelFromJson(
+        Map<String, dynamic> json) =>
+    SupplierProductCacheModel(
+      id: (json['id'] as num?)?.toInt(),
+      supplierId: (json['supplierId'] as num?)?.toInt(),
+      productId: (json['productId'] as num?)?.toInt(),
+      buyPrice: json['buyPrice'] as String?,
+      stockQuantity: (json['stockQuantity'] as num?)?.toInt(),
+      status: json['status'] as String?,
+      supplier: json['supplier'] == null
+          ? null
+          : SupplierCacheModel.fromJson(
+              json['supplier'] as Map<String, dynamic>),
+      product: json['product'] == null
+          ? null
+          : ProductCacheModel.fromJson(json['product'] as Map<String, dynamic>),
+      createdAt: json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
+      updatedAt: json['updatedAt'] == null
+          ? null
+          : DateTime.parse(json['updatedAt'] as String),
+      imageUrl: json['imageUrl'] as String?,
+    );
+
+Map<String, dynamic> _$SupplierProductCacheModelToJson(
+        SupplierProductCacheModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'supplierId': instance.supplierId,
+      'productId': instance.productId,
+      'buyPrice': instance.buyPrice,
+      'stockQuantity': instance.stockQuantity,
+      'status': instance.status,
+      'supplier': instance.supplier?.toJson(),
+      'product': instance.product?.toJson(),
+      'createdAt': instance.createdAt?.toIso8601String(),
+      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'imageUrl': instance.imageUrl,
     };

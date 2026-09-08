@@ -244,11 +244,13 @@ flutter run
 
 ## 👨‍💻 Author
 
-Adnan Helali
-Flutter Developer
+**Ibrahem Alhuossien**  
+Information Engineering Student  
+University of Aleppo
 
-Ibrahem Alhuossien
-Flutter Developer
+**Adnan Adnan**  
+Information Engineering Student  
+University of Aleppo
 
 ---
 

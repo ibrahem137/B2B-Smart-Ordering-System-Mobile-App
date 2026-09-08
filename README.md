@@ -246,5 +246,11 @@ flutter run
 
 Adnan Helali
 Flutter Developer
+Ibrahem Alhuossien
+Flutter Developer
 
 ---
+
+## 📄 License
+
+This project was developed for educational purposes.
